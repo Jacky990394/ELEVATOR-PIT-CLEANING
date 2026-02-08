@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 引入與首頁相同的字體 */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400;700&display=swap');
+
+        :root {
+            --cad-bg: #001529;
+            --cad-line: #00ffff;
+            --cad-line-dim: rgba(0, 255, 255, 0.3);
+            --cad-text: #e0e0e0;
+            --cad-highlight: #ffdd00; /* 黃色高亮 */
+            --grid-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--cad-bg);
+        }
+
+        .service-wrapper {
+            background-color: var(--cad-bg);
+            /* 延續首頁的工程網格背景 */
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--cad-text);
+            font-family: 'Share Tech Mono', 'Noto Sans TC', sans-serif;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 100vh; /* 確保至少佔滿一頁高度 */
+        }
+
+        /* 標題區 */
+        .page-header {
+            border-bottom: 2px solid var(--cad-line);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .main-title {
+            color: var(--cad-line);
+            font-size: 2em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        .sub-title {
+            color: #aaa;
+            font-size: 1em;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 戰術分析表格 */
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* 手機版如果太寬可以左右滑 */
+            margin-bottom: 40px;
+            border: 1px solid var(--cad-line);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            background: rgba(0, 20, 40, 0.8);
+        }
+
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* 確保手機上有足夠寬度顯示內容 */
+        }
+
+        .tech-table th, .tech-table td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid var(--cad-line-dim);
+        }
+
+        /* 表頭樣式 */
+        .tech-table thead th {
+            background-color: rgba(0, 255, 255, 0.1);
+            color: var(--cad-line);
+            font-size: 1.1em;
+            letter-spacing: 1px;
+        }
+
+        /* 第一欄：項目名稱 */
+        .col-item {
+            width: 15%;
+            font-weight: bold;
+            color: var(--cad-line);
+        }
+
+        /* 重點欄位：昱揚工程 (高亮版) */
+        .col-yuyang {
+            width: 35%;
+            background-color: rgba(255, 221, 0, 0.1); /* 淡淡的黃色背景 */
+            border-left: 2px solid var(--cad-highlight) !important;
+            border-right: 2px solid var(--cad-highlight) !important;
+            position: relative;
+        }
+
+        /* 讓昱揚的標題特別亮 */
+        .th-yuyang {
+            color: var(--cad-highlight) !important;
+            font-size: 1.3em !important;
+            border-bottom: 2px solid var(--cad-highlight) !important;
+            background-color: rgba(255, 221, 0, 0.15) !important;
+        }
+
+        /* 勝出標籤 */
+        .winner-tag {
+            display: inline-block;
+            background: var(--cad-highlight);
+            color: #000;
+            font-size: 0.8em;
+            padding: 2px 6px;
+            border-radius: 2px;
+            margin-left: 8px;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        /* 其他公司欄位 */
+        .col-other {
+            width: 25%;
+            color: #888; /* 把競爭對手顏色調暗，凸顯自己 */
+        }
+
+        /* 結論區塊 */
+        .summary-box {
+            border: 1px dashed var(--cad-highlight);
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .summary-title {
+            color: var(--cad-highlight);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .corner {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 2px solid var(--cad-highlight);
+        }
+        .tl { top: -2px; left: -2px; border-bottom: none; border-right: none; }
+        .tr { top: -2px; right: -2px; border-bottom: none; border-left: none; }
+        .bl { bottom: -2px; left: -2px; border-top: none; border-right: none; }
+        .br { bottom: -2px; right: -2px; border-top: none; border-left: none; }
+
+    </style>
+</head>
+<body>
+
+<div class="service-wrapper">
+    <div class="page-header">
+        <h1 class="main-title">ELEVATOR PIT CLEANING</h1>
+        <div class="sub-title">
+            電梯機坑清潔服務 // 專業比較分析<br>
+            徹底解決機坑油泥、異味與衛生問題，打造最安全的運行環境。
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th class="col-item">比較項目<br><span style="font-size:0.6em">ITEM</span></th>
+                    <th class="col-yuyang th-yuyang">
+                        昱揚工程 
+                        <span class="winner-tag">WIN</span>
+                    </th>
+                    <th class="col-other">防水抓漏公司</th>
+                    <th class="col-other">一般清潔公司</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>主要目的</td>
+                    <td class="col-yuyang" style="color:#fff; font-weight:bold;">衛生、防蟲、除臭</td>
+                    <td class="col-other">止漏、結構補強</td>
+                    <td class="col-other">表面美觀</td>
+                </tr>
+                <tr>
+                    <td>進場時機</td>
+                    <td class="col-yuyang" style="color:#fff; font-weight:bold;">定期保養 (預防)</td>
+                    <td class="col-other">發生災情 (漏水) 時</td>
+                    <td class="col-other">每日 / 每週</td>
+                </tr>
+                <tr>
+                    <td>機坑處理</td>
+                    <td class="col-yuyang" style="color:var(--cad-highlight); font-weight:bold; font-size:1.1em;">
+                        深層除油泥 + 消毒
+                    </td>
+                    <td class="col-other">僅清除積水/廢料</td>
+                    <td class="col-other">不敢進入 (危險)</td>
+                </tr>
+                <tr>
+                    <td>價格感</td>
+                    <td class="col-yuyang" style="color:#fff; font-weight:bold;">
+                        高CP值 (保養價)
+                    </td>
+                    <td class="col-other">昂貴 (工程價)</td>
+                    <td class="col-other">便宜 (人力價)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="summary-box">
+        <div class="corner tl"></div><div class="corner tr"></div>
+        <div class="corner bl"></div><div class="corner br"></div>
+        
+        <div class="summary-title">SYSTEM ANALYSIS // 系統分析結論</div>
+        <p>
+            一般清潔公司無法處理深層油泥，抓漏公司費用過高且不處理衛生問題。<br>
+            昱揚工程結合<strong>「工程專業」</strong>與<strong>「清潔細膩」</strong>，提供最符合效益的機坑潔淨方案。
+        </p>
+        <p style="margin-top:15px; color: #888; font-size: 0.9em;">
+            [ 建議：每半年至一年進行一次深度保養 ]
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
